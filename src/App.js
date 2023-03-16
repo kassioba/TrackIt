@@ -1,25 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import PaginaLogin from "./pages/PaginaLogin";
+import PaginaCadastro from "./pages/PaginaCadastro";
+import PaginaHabitos from "./pages/PaginaHabitos";
+import { useState } from "react";
+import { createGlobalStyle } from "styled-components";
 
 function App() {
+  const [dataUsuario, setDataUsuario] = useState();
+  const [token, setToken] = useState("");
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <GlobalStyle />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <PaginaLogin setToken={setToken} setDataUsuario={setDataUsuario} />
+          }
+        />
+        <Route path="/cadastro" element={<PaginaCadastro />} />
+        <Route
+          path="/habitos"
+          element={<PaginaHabitos token={token} dataUsuario={dataUsuario} />}
+        />
+        {/* <Route path="/hoje" element={<PaginaHoje />} />
+        <Route path="/historico" element={<PaginaHistorico />} /> */}
+      </Routes>
+    </BrowserRouter>
   );
 }
 
 export default App;
+
+const GlobalStyle = createGlobalStyle`
+body{
+  margin: 0;
+  background-color: #F2F2F2;
+}
+`;
