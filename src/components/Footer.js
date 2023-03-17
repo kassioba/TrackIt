@@ -13,7 +13,11 @@ export default function Footer() {
         <button>
           <CircularProgressbar
             text="Hoje"
-            styles={buildStyles({ textColor: "#ffffff" })}
+            styles={buildStyles({
+              textColor: "#ffffff",
+              textSize: "23px",
+              pathColor: `rgba(255, 255, 255, 100)`,
+            })}
           />
         </button>
       </Link>
@@ -54,6 +58,7 @@ const FooterContainer = styled.div`
     border: none;
     font-size: 18px;
     color: #ffffff;
+    font-family: "Lexend Deca", sans-serif;
   }
 
   a {

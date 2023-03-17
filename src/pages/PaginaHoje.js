@@ -57,8 +57,12 @@ export default function PaginaHoje({ dataUsuario, token }) {
       <Header dataUsuario={dataUsuario} />
       <ContainerHoje>
         <Dia data-test="today">{`${hoje}, ${data}`}</Dia>
-        <PorcentagemHab valor={Math.ceil(valorHab)} data-test="today-counter">
-          {Math.ceil(valorHab) === 0
+        <PorcentagemHab
+          valor={Math.ceil(valorHab)}
+          habitosHoje={habitosHoje}
+          data-test="today-counter"
+        >
+          {Math.ceil(valorHab) === 0 || habitosHoje.length === 0
             ? "Nenhum hábito concluído ainda"
             : `${Math.ceil(valorHab)}% dos hábitos concluídos`}
         </PorcentagemHab>
@@ -107,5 +111,8 @@ const ListaContainer = styled.div`
 
 const PorcentagemHab = styled.div`
   font-size: 18px;
-  color: ${(props) => (props.valor === 0 ? "#bababa" : "#8FC549")};
+  color: ${(props) =>
+    props.valor === 0 || props.habitosHoje.length === 0
+      ? "#bababa"
+      : "#8FC549"};
 `;
