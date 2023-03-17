@@ -56,11 +56,13 @@ export default function PaginaHoje({ dataUsuario, token }) {
     <>
       <Header dataUsuario={dataUsuario} />
       <ContainerHoje valor={Math.ceil(valorHab)}>
-        <Dia>{`${hoje}, ${data}`}</Dia>
+        <Dia data-test="today">{`${hoje}, ${data}`}</Dia>
         {Math.ceil(valorHab) === 0 ? (
-          <span>Nenhum hábito concluído ainda</span>
+          <span data-test="today-counter">Nenhum hábito concluído ainda</span>
         ) : (
-          <span>{`${Math.ceil(valorHab)}% dos hábitos concluídos`}</span>
+          <span data-test="today-counter">{`${Math.ceil(
+            valorHab
+          )}% dos hábitos concluídos`}</span>
         )}
         <ListaContainer>
           {habitosHoje.map((data) => (

@@ -45,19 +45,32 @@ export default function CardHoje({
   }
 
   return (
-    <Card onClick={() => habitoFeito(id)} feito={feito}>
+    <Card feito={feito} data-test="today-habit-container">
       <Texto>
-        <TextoPrincipal>{nome}</TextoPrincipal>
+        <TextoPrincipal data-test="today-habit-name">{nome}</TextoPrincipal>
         <Margin>
-          <TextoSecundario feito={feito} seqAtual={seqAtual}>
+          <TextoSecundario
+            data-test="today-habit-sequence"
+            feito={feito}
+            seqAtual={seqAtual}
+          >
             Sequência atual: <span>{seqAtual} dias</span>
           </TextoSecundario>
-          <TextoTerciario seqAtual={seqAtual} maxSeq={maxSeq} feito={feito}>
+          <TextoTerciario
+            data-test="today-habit-record"
+            seqAtual={seqAtual}
+            maxSeq={maxSeq}
+            feito={feito}
+          >
             Seu recorde: <span>{maxSeq} dias</span>
           </TextoTerciario>
         </Margin>
       </Texto>
-      <ion-icon name="checkbox"></ion-icon>
+      <ion-icon
+        data-test="today-habit-check-btn"
+        onClick={() => habitoFeito(id)}
+        name="checkbox"
+      ></ion-icon>
     </Card>
   );
 }
