@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
 
 export default function Footer() {
   return (
@@ -8,7 +10,12 @@ export default function Footer() {
         <span>Hábitos</span>
       </Link>
       <Link to="/hoje" data-test="today-link">
-        <button>Hoje</button>
+        <button>
+          <CircularProgressbar
+            text="Hoje"
+            styles={buildStyles({ textColor: "#ffffff" })}
+          />
+        </button>
       </Link>
       <Link to="/historico" data-test="history-link">
         <span>Histórico</span>

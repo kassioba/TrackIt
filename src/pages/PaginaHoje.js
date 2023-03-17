@@ -55,9 +55,9 @@ export default function PaginaHoje({ dataUsuario, token }) {
   return (
     <>
       <Header dataUsuario={dataUsuario} />
-      <ContainerHoje valor={Math.ceil(valorHab)}>
+      <ContainerHoje>
         <Dia data-test="today">{`${hoje}, ${data}`}</Dia>
-        <PorcentagemHab data-test="today-counter">
+        <PorcentagemHab valor={Math.ceil(valorHab)} data-test="today-counter">
           {Math.ceil(valorHab) === 0
             ? "Nenhum hábito concluído ainda"
             : `${Math.ceil(valorHab)}% dos hábitos concluídos`}
