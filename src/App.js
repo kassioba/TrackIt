@@ -5,6 +5,7 @@ import PaginaHabitos from "./pages/PaginaHabitos";
 import PaginaHoje from "./pages/PaginaHoje";
 import { useState } from "react";
 import { createGlobalStyle } from "styled-components";
+import PaginaHistorico from "./pages/PaginaHistorico";
 
 function App() {
   const [dataUsuario, setDataUsuario] = useState();
@@ -29,7 +30,10 @@ function App() {
           path="/hoje"
           element={<PaginaHoje dataUsuario={dataUsuario} token={token} />}
         />
-        {/*<Route path="/historico" element={<PaginaHistorico />} /> */}
+        <Route
+          path="/historico"
+          element={<PaginaHistorico dataUsuario={dataUsuario} />}
+        />
       </Routes>
     </BrowserRouter>
   );
@@ -41,5 +45,6 @@ const GlobalStyle = createGlobalStyle`
 body{
   margin: 0;
   background-color: #F2F2F2;
+  font-family: 'Lexend Deca', sans-serif;
 }
 `;

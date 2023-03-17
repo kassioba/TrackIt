@@ -1,13 +1,60 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
-export default function CardHoje({ token }) {
+export default function CardHoje({
+  buscarHabitosHoje,
+  token,
+  id,
+  seqAtual,
+  maxSeq,
+  nome,
+  feito,
+}) {
+  const vazio = undefined;
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  function habitoFeito(i) {
+    if (feito === false) {
+      const promise = axios.post(
+        `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${i}/check`,
+        vazio,
+        config
+      );
+
+      promise.then((resp) => {
+        buscarHabitosHoje();
+      });
+      promise.catch((err) => alert(err));
+    } else {
+      const promise = axios.post(
+        `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${i}/uncheck`,
+        vazio,
+        config
+      );
+
+      promise.then((resp) => {
+        buscarHabitosHoje();
+      });
+      promise.catch((err) => alert(err));
+    }
+  }
+
   return (
-    <Card>
+    <Card onClick={() => habitoFeito(id)} feito={feito}>
       <Texto>
-        <TextoPrincipal>Ler 1 capítulo de livro</TextoPrincipal>
+        <TextoPrincipal>{nome}</TextoPrincipal>
         <Margin>
-          <TextoSecundario>Sequência atual: 4 dias </TextoSecundario>
-          <TextoSecundario>Seu recorde: 5 dias</TextoSecundario>
+          <TextoSecundario feito={feito} seqAtual={seqAtual}>
+            Sequência atual: <span>{seqAtual} dias</span>
+          </TextoSecundario>
+          <TextoTerciario seqAtual={seqAtual} maxSeq={maxSeq} feito={feito}>
+            Seu recorde: <span>{maxSeq} dias</span>
+          </TextoTerciario>
         </Margin>
       </Texto>
       <ion-icon name="checkbox"></ion-icon>
@@ -30,7 +77,7 @@ const Card = styled.div`
 
   ion-icon {
     font-size: 85px;
-    color: #e7e7e7;
+    color: ${(props) => (props.feito ? "#8FC549" : "#e7e7e7")};
     margin-left: 35px;
     position: absolute;
     right: 5px;
@@ -51,10 +98,27 @@ const TextoPrincipal = styled.div`
 const TextoSecundario = styled.div`
   font-size: 16px;
   color: #666666;
+
+  span {
+    font-size: 16px;
+    color: ${(props) =>
+      props.feito && props.seqAtual !== 0 ? "#8FC549" : "#666666"};
+  }
 `;
 
 const Margin = styled.div`
   margin-top: 5px;
   display: flex;
   flex-direction: column;
+`;
+
+const TextoTerciario = styled.div`
+  font-size: 16px;
+  color: #666666;
+
+  span {
+    font-size: 16px;
+    color: ${(props) =>
+      props.seqAtual === props.maxSeq && props.feito ? "#8FC549" : "#666666"};
+  }
 `;

@@ -11,6 +11,7 @@ export default function PaginaHoje({ dataUsuario, token }) {
   const [hoje, setHoje] = useState("");
   const [data, setData] = useState("");
   const [habitosHoje, setHabitosHoje] = useState([]);
+  const [valorHab, setValorHab] = useState(0);
   const diasSemana = [
     "Domingo",
     "Segunda",
@@ -21,7 +22,13 @@ export default function PaginaHoje({ dataUsuario, token }) {
     "Sábado",
   ];
 
-  useEffect(() => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const buscarHabitosHoje = () => {
     setHoje(diasSemana[dayjs().day()]);
     setData(dayjs().format("DD/MM"));
 
@@ -30,23 +37,46 @@ export default function PaginaHoje({ dataUsuario, token }) {
       config
     );
 
-    promise.then((resp) => console.log(resp.data));
-  }, []);
-
-  const config = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
+    promise.then((resp) => {
+      console.log(resp.data);
+      setHabitosHoje(resp.data);
+      let porcentagem = 0;
+      for (let i = 0; i < resp.data.length; i++) {
+        if (resp.data[i].done) {
+          porcentagem++;
+        }
+      }
+      setValorHab(porcentagem * (100 / resp.data.length));
+    });
   };
+
+  useEffect(() => buscarHabitosHoje(), []);
 
   return (
     <>
       <Header dataUsuario={dataUsuario} />
-      <ContainerHoje>
+      <ContainerHoje valor={Math.ceil(valorHab)}>
         <Dia>{`${hoje}, ${data}`}</Dia>
-        <span>Nenhum hábito concluído ainda</span>
+        {Math.ceil(valorHab) === 0 ? (
+          <span>Nenhum hábito concluído ainda</span>
+        ) : (
+          <span>{`${Math.ceil(valorHab)}% dos hábitos concluídos`}</span>
+        )}
         <ListaContainer>
-          <CardHoje token={token} />
+          {habitosHoje.map((data) => (
+            <CardHoje
+              habitosHoje={habitosHoje}
+              buscarHabitosHoje={buscarHabitosHoje}
+              token={token}
+              id={data.id}
+              seqAtual={data.currentSequence}
+              maxSeq={data.highestSequence}
+              nome={data.name}
+              feito={data.done}
+              valorHab={valorHab}
+              setValorHab={setValorHab}
+            />
+          ))}
         </ListaContainer>
       </ContainerHoje>
       <Footer />
@@ -55,15 +85,17 @@ export default function PaginaHoje({ dataUsuario, token }) {
 }
 
 const ContainerHoje = styled.div`
-  background-color: red;
+  height: 490px;
   margin-top: 70px;
   padding-left: 18px;
   padding-top: 28px;
   box-sizing: border-box;
+  overflow-y: scroll;
+  overflow-x: hidden;
 
   span {
     font-size: 18px;
-    color: #bababa;
+    color: ${(props) => (props.valor === 0 ? "#bababa" : "#8FC549")};
   }
 `;
 
@@ -75,6 +107,5 @@ const Dia = styled.div`
 
 const ListaContainer = styled.div`
   width: 340px;
-  background-color: beige;
   margin-top: 18px;
 `;

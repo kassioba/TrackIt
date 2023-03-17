@@ -24,6 +24,7 @@ const HeaderContainer = styled.div`
   box-sizing: border-box;
   position: fixed;
   top: 0;
+  font-family: "Playball", cursive;
 
   img {
     width: 51px;
