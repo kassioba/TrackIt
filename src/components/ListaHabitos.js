@@ -31,7 +31,6 @@ export default function ListaHabitos({ token }) {
         config
       );
 
-      promise.then((resp) => alert("Hábito deletado"));
       promise.catch((err) => alert("Não foi possível deletar o hábito"));
     }
   }
@@ -40,7 +39,10 @@ export default function ListaHabitos({ token }) {
     <>
       <HeaderLista>
         <span>Meus hábitos</span>
-        <button onClick={() => setAparecerCard("inherit")}>
+        <button
+          onClick={() => setAparecerCard("inherit")}
+          data-test="habit-create-btn"
+        >
           <ion-icon name="add-outline"></ion-icon>
         </button>
       </HeaderLista>
@@ -62,15 +64,16 @@ export default function ListaHabitos({ token }) {
       ) : (
         <ListaContainer>
           {habitos.map((card, i) => (
-            <CardHabito>
-              <span>{card.name}</span>
+            <CardHabito data-test="habit-container">
+              <span data-test="habit-name">{card.name}</span>
               <ion-icon
+                data-test="habit-delete-btn"
                 onClick={() => deletarCard(card.id)}
                 name="trash-outline"
               ></ion-icon>
               <DiasSemana>
                 {dias.map((dia, index) => (
-                  <Dia card={card} i={i} index={index}>
+                  <Dia data-test="habit-day" card={card} i={i} index={index}>
                     {dia}
                   </Dia>
                 ))}
@@ -108,14 +111,12 @@ const TextoContainer = styled.div`
   width: 336px;
   margin-top: 28px;
   color: #666666;
-  background-color: red;
   font-size: 18px;
   line-height: 22px;
 `;
 
 const ListaContainer = styled.div`
   width: 340px;
-  background-color: blue;
   margin-top: 10px;
   display: flex;
   flex-direction: column;

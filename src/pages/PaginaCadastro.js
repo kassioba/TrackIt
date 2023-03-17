@@ -37,6 +37,7 @@ export default function PaginaCadastro() {
       <img src="./assets/logo.png" alt="logo" />
       <FormCadastro onSubmit={finalizarCadastro}>
         <input
+          data-test="email-input"
           required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -44,6 +45,7 @@ export default function PaginaCadastro() {
           placeholder="email"
         />
         <input
+          data-test="password-input"
           required
           value={senha}
           onChange={(e) => setSenha(e.target.value)}
@@ -51,20 +53,24 @@ export default function PaginaCadastro() {
           placeholder="senha"
         />
         <input
+          data-test="user-name-input"
           required
           value={nome}
           onChange={(e) => setNome(e.target.value)}
           placeholder="nome"
         />
         <input
+          data-test="user-image-input"
           required
           value={img}
           onChange={(e) => setImg(e.target.value)}
           placeholder="foto"
         />
-        <button type="submit">Cadastrar</button>
+        <button data-test="signup-btn" type="submit">
+          Cadastrar
+        </button>
       </FormCadastro>
-      <Link to="/">
+      <Link to="/" data-test="login-link">
         <p>Já tem uma conta? Faça login!</p>
       </Link>
     </CadastroContainer>

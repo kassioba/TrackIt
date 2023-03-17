@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import PaginaLogin from "./pages/PaginaLogin";
 import PaginaCadastro from "./pages/PaginaCadastro";
 import PaginaHabitos from "./pages/PaginaHabitos";
+import PaginaHoje from "./pages/PaginaHoje";
 import { useState } from "react";
 import { createGlobalStyle } from "styled-components";
 
@@ -24,8 +25,11 @@ function App() {
           path="/habitos"
           element={<PaginaHabitos token={token} dataUsuario={dataUsuario} />}
         />
-        {/* <Route path="/hoje" element={<PaginaHoje />} />
-        <Route path="/historico" element={<PaginaHistorico />} /> */}
+        <Route
+          path="/hoje"
+          element={<PaginaHoje dataUsuario={dataUsuario} token={token} />}
+        />
+        {/*<Route path="/historico" element={<PaginaHistorico />} /> */}
       </Routes>
     </BrowserRouter>
   );

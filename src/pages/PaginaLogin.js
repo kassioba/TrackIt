@@ -35,6 +35,7 @@ export default function PaginaLogin({ setDataUsuario, setToken }) {
       <img src="./assets/logo.png" alt="logo" />
       <FormLogin>
         <input
+          data-test="email-input"
           onChange={(e) => setEmail(e.target.value)}
           value={email}
           required
@@ -42,15 +43,18 @@ export default function PaginaLogin({ setDataUsuario, setToken }) {
           placeholder="email"
         />
         <input
+          data-test="password-input"
           onChange={(e) => setSenha(e.target.value)}
           value={senha}
           required
           type="password"
           placeholder="senha"
         />
-        <button type="submit">Entrar</button>
+        <button data-test="login-btn" type="submit">
+          Entrar
+        </button>
       </FormLogin>
-      <Link to="/cadastro">
+      <Link to="/cadastro" data-test="signup-link">
         <p>Não tem uma conta? Cadastre-se!</p>
       </Link>
     </LoginContainer>

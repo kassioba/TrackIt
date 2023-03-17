@@ -42,7 +42,6 @@ export default function CardCriacao({
     );
 
     promisse.then((resp) => {
-      alert("Habito criado");
       setAparecerCard("none");
       setDiasEscolhidos([]);
       setNomeHabito("");
@@ -51,8 +50,12 @@ export default function CardCriacao({
   }
 
   return (
-    <CriacaoContainer aparecerCard={aparecerCard}>
+    <CriacaoContainer
+      data-test="card-create-container"
+      aparecerCard={aparecerCard}
+    >
       <NomeHab
+        data-test="habit-name-input"
         value={nomeHabito}
         onChange={(e) => setNomeHabito(e.target.value)}
         placeholder="nome do hábito"
@@ -60,6 +63,7 @@ export default function CardCriacao({
       <DiasSemana>
         {dias.map((dia, index) => (
           <Dia
+            data-test="habit-day"
             key={index}
             onClick={() => escolherDias(index)}
             index={index}
@@ -69,8 +73,15 @@ export default function CardCriacao({
           </Dia>
         ))}
       </DiasSemana>
-      <Cancelar onClick={() => setAparecerCard("none")}>Cancelar</Cancelar>
-      <Salvar onClick={criarHabito}>Salvar</Salvar>
+      <Cancelar
+        onClick={() => setAparecerCard("none")}
+        data-test="habit-create-cancel-btn"
+      >
+        Cancelar
+      </Cancelar>
+      <Salvar onClick={criarHabito} data-test="habit-create-save-btn">
+        Salvar
+      </Salvar>
     </CriacaoContainer>
   );
 }
