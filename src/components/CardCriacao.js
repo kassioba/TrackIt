@@ -51,7 +51,7 @@ export default function CardCriacao({
 
   return (
     <CriacaoContainer
-      data-test="card-create-container"
+      data-test="habit-create-container"
       aparecerCard={aparecerCard}
     >
       <NomeHab
