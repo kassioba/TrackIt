@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export default function Header({ dataUsuario }) {
   return (
-    <HeaderContainer>
+    <HeaderContainer data-test="header">
       <span>TrackIt</span>
       <img src={dataUsuario.image} alt="" />
     </HeaderContainer>

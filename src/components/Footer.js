@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 export default function Footer() {
   return (
-    <FooterContainer>
+    <FooterContainer data-test="menu">
       <Link to="/habitos" data-test="habit-link">
         <span>Hábitos</span>
       </Link>

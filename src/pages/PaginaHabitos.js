@@ -6,11 +6,11 @@ import ListaHabitos from "../components/ListaHabitos";
 export default function PaginaHabitos({ token, dataUsuario }) {
   return (
     <>
-      <Header data-test="header" dataUsuario={dataUsuario} />
+      <Header dataUsuario={dataUsuario} />
       <HabitosContainer>
         <ListaHabitos token={token} />
       </HabitosContainer>
-      <Footer data-test="menu" />
+      <Footer />
     </>
   );
 }
