@@ -1,17 +1,21 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
+import { ThreeDots } from "react-loader-spinner";
 
 export default function PaginaCadastro() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [nome, setNome] = useState("");
   const [img, setImg] = useState("");
+  const [desativado, setDesativado] = useState(false);
   const navigate = useNavigate();
 
   function finalizarCadastro(e) {
     e.preventDefault();
+
+    setDesativado(true);
 
     const cadastroData = {
       email: email,
@@ -27,8 +31,14 @@ export default function PaginaCadastro() {
     );
 
     promisse.then(() => {
-      alert("requisição efetuada com sucesso");
+      alert("Login efetuado com sucesso");
+      setDesativado(false);
       navigate("/");
+    });
+
+    promisse.catch((err) => {
+      alert(err);
+      setDesativado(false);
     });
   }
 
@@ -37,6 +47,7 @@ export default function PaginaCadastro() {
       <img src="./assets/logo.png" alt="logo" />
       <FormCadastro onSubmit={finalizarCadastro}>
         <input
+          disabled={desativado}
           data-test="email-input"
           required
           value={email}
@@ -45,6 +56,7 @@ export default function PaginaCadastro() {
           placeholder="email"
         />
         <input
+          disabled={desativado}
           data-test="password-input"
           required
           value={senha}
@@ -53,6 +65,7 @@ export default function PaginaCadastro() {
           placeholder="senha"
         />
         <input
+          disabled={desativado}
           data-test="user-name-input"
           required
           value={nome}
@@ -60,14 +73,28 @@ export default function PaginaCadastro() {
           placeholder="nome"
         />
         <input
+          disabled={desativado}
           data-test="user-image-input"
           required
           value={img}
           onChange={(e) => setImg(e.target.value)}
           placeholder="foto"
         />
-        <button data-test="signup-btn" type="submit">
-          Cadastrar
+        <button disabled={desativado} data-test="signup-btn" type="submit">
+          {desativado ? (
+            <ThreeDots
+              height="13"
+              width="51"
+              radius="9"
+              color="#ffffff"
+              ariaLabel="three-dots-loading"
+              wrapperStyle={{}}
+              wrapperClassName=""
+              visible={true}
+            />
+          ) : (
+            "Cadastrar"
+          )}
         </button>
       </FormCadastro>
       <Link to="/" data-test="login-link">
@@ -128,5 +155,8 @@ const FormCadastro = styled.form`
     background-color: #52b6ff;
     border-radius: 5px;
     border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 `;

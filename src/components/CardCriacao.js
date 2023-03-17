@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import styled from "styled-components";
+import { ThreeDots } from "react-loader-spinner";
 
 export default function CardCriacao({
   diasEscolhidos,
@@ -12,6 +13,7 @@ export default function CardCriacao({
   atualizarContagem,
 }) {
   const [nomeHabito, setNomeHabito] = useState("");
+  const [desativado, setDesativado] = useState(false);
 
   function escolherDias(i) {
     let diasEscolhidosCopia = [...diasEscolhidos];
@@ -25,6 +27,8 @@ export default function CardCriacao({
   }
 
   function criarHabito() {
+    setDesativado(true);
+
     const criacaoData = {
       name: nomeHabito,
       days: diasEscolhidos,
@@ -47,8 +51,12 @@ export default function CardCriacao({
       setDiasEscolhidos([]);
       setNomeHabito("");
       atualizarContagem();
+      setDesativado(false);
     });
-    promisse.catch((err) => alert(err));
+    promisse.catch((err) => {
+      setDesativado(false);
+      alert(err);
+    });
   }
 
   return (
@@ -57,6 +65,7 @@ export default function CardCriacao({
       aparecerCard={aparecerCard}
     >
       <NomeHab
+        disabled={desativado}
         data-test="habit-name-input"
         value={nomeHabito}
         onChange={(e) => setNomeHabito(e.target.value)}
@@ -65,6 +74,7 @@ export default function CardCriacao({
       <DiasSemana>
         {dias.map((dia, index) => (
           <Dia
+            disabled={desativado}
             data-test="habit-day"
             key={index}
             onClick={() => escolherDias(index)}
@@ -76,13 +86,33 @@ export default function CardCriacao({
         ))}
       </DiasSemana>
       <Cancelar
+        disabled={desativado}
         onClick={() => setAparecerCard("none")}
         data-test="habit-create-cancel-btn"
       >
         Cancelar
       </Cancelar>
-      <Salvar onClick={criarHabito} data-test="habit-create-save-btn">
-        Salvar
+      <Salvar
+        disabled={desativado}
+        onClick={criarHabito}
+        data-test="habit-create-save-btn"
+      >
+        {desativado ? (
+          <button>
+            <ThreeDots
+              height="13"
+              width="51"
+              radius="9"
+              color="#ffffff"
+              ariaLabel="three-dots-loading"
+              wrapperStyle={{}}
+              wrapperClassName=""
+              visible={true}
+            />
+          </button>
+        ) : (
+          "Salvar"
+        )}
       </Salvar>
     </CriacaoContainer>
   );
@@ -144,6 +174,11 @@ const Salvar = styled.button`
   color: #ffffff;
   margin-left: 15px;
   cursor: pointer;
+
+  button {
+    border: none;
+    background-color: #52b6ff;
+  }
 `;
 
 const Dia = styled.button`
