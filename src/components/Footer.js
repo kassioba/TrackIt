@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 
-export default function Footer() {
+export default function Footer({ valorHab }) {
   return (
     <FooterContainer data-test="menu">
       <Link to="/habitos" data-test="habit-link">
@@ -12,6 +12,7 @@ export default function Footer() {
       <Link to="/hoje" data-test="today-link">
         <button>
           <CircularProgressbar
+            value={Math.ceil(valorHab)}
             text="Hoje"
             styles={buildStyles({
               textColor: "#ffffff",

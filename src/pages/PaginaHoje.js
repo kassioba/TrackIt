@@ -7,11 +7,16 @@ import { useEffect } from "react";
 import CardHoje from "../components/CardHoje";
 import axios from "axios";
 
-export default function PaginaHoje({ dataUsuario, token }) {
+export default function PaginaHoje({
+  valorHab,
+  setValorHab,
+  dataUsuario,
+  token,
+}) {
   const [hoje, setHoje] = useState("");
   const [data, setData] = useState("");
   const [habitosHoje, setHabitosHoje] = useState([]);
-  const [valorHab, setValorHab] = useState(0);
+
   const diasSemana = [
     "Domingo",
     "Segunda",
@@ -83,7 +88,7 @@ export default function PaginaHoje({ dataUsuario, token }) {
           ))}
         </ListaContainer>
       </ContainerHoje>
-      <Footer />
+      <Footer valorHab={valorHab} />
     </>
   );
 }

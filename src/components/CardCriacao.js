@@ -9,6 +9,7 @@ export default function CardCriacao({
   token,
   aparecerCard,
   setAparecerCard,
+  atualizarContagem,
 }) {
   const [nomeHabito, setNomeHabito] = useState("");
 
@@ -45,6 +46,7 @@ export default function CardCriacao({
       setAparecerCard("none");
       setDiasEscolhidos([]);
       setNomeHabito("");
+      atualizarContagem();
     });
     promisse.catch((err) => alert(err));
   }

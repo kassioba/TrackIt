@@ -3,7 +3,7 @@ import styled from "styled-components";
 import CardCriacao from "./CardCriacao";
 import axios from "axios";
 
-export default function ListaHabitos({ token }) {
+export default function ListaHabitos({ token, atualizarContagem }) {
   const [habitos, setHabitos] = useState([]);
   const [aparecerCard, setAparecerCard] = useState("none");
   const dias = ["D", "S", "T", "Q", "Q", "S", "S"];
@@ -31,6 +31,7 @@ export default function ListaHabitos({ token }) {
         config
       );
 
+      promise.then((resp) => atualizarContagem());
       promise.catch((err) => alert("Não foi possível deletar o hábito"));
     }
   }
@@ -53,6 +54,7 @@ export default function ListaHabitos({ token }) {
         token={token}
         aparecerCard={aparecerCard}
         setAparecerCard={setAparecerCard}
+        atualizarContagem={atualizarContagem}
       />
       {habitos.length === 0 ? (
         <>

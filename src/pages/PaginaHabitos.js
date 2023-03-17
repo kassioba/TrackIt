@@ -3,14 +3,19 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 import ListaHabitos from "../components/ListaHabitos";
 
-export default function PaginaHabitos({ token, dataUsuario }) {
+export default function PaginaHabitos({
+  valorHab,
+  token,
+  dataUsuario,
+  atualizarContagem,
+}) {
   return (
     <>
       <Header dataUsuario={dataUsuario} />
       <HabitosContainer>
-        <ListaHabitos token={token} />
+        <ListaHabitos token={token} atualizarContagem={atualizarContagem} />
       </HabitosContainer>
-      <Footer />
+      <Footer valorHab={valorHab} />
     </>
   );
 }

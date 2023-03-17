@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 
-export default function PaginaHistorico({ dataUsuario }) {
+export default function PaginaHistorico({ valorHab, dataUsuario }) {
   return (
     <>
       <Header dataUsuario={dataUsuario} />
@@ -10,7 +10,7 @@ export default function PaginaHistorico({ dataUsuario }) {
         <h1>Histórico</h1>
         <p>Em breve você poderá ver o histórico dos seus hábitos aqui!</p>
       </HistContainer>
-      <Footer />
+      <Footer valorHab={valorHab} />
     </>
   );
 }
