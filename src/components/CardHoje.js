@@ -132,6 +132,6 @@ const TextoTerciario = styled.div`
   span {
     font-size: 16px;
     color: ${(props) =>
-      props.seqAtual === props.maxSeq && props.feito ? "#8FC549" : "#666666"};
+      props.seqAtual <= props.maxSeq && props.feito ? "#8FC549" : "#666666"};
   }
 `;
