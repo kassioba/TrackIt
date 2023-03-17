@@ -23,7 +23,7 @@ export default function PaginaLogin({ setDataUsuario, setToken }) {
     );
 
     promisse.then((resp) => {
-      navigate("/habitos");
+      navigate("/hoje");
       setDataUsuario(resp.data);
       setToken(resp.data.token);
     });

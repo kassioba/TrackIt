@@ -41,7 +41,7 @@ export default function PaginaHoje({ dataUsuario, token }) {
 
   return (
     <>
-      <Header dataUsuario={dataUsuario} />
+      <Header dataUsuario={dataUsuario} data-test="header" />
       <ContainerHoje>
         <Dia>{`${hoje}, ${data}`}</Dia>
         <span>Nenhum hábito concluído ainda</span>
@@ -49,7 +49,7 @@ export default function PaginaHoje({ dataUsuario, token }) {
           <CardHoje token={token} />
         </ListaContainer>
       </ContainerHoje>
-      <Footer />
+      <Footer data-test="menu" />
     </>
   );
 }
